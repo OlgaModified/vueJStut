@@ -1,0 +1,9 @@
+{
+    "jobs": [
+        {"title": "Web Developer", "id": 1, "details": "Web development"},
+        {"title": "Back-end Developer", "id": 2, "details": "Development of the back side of the applications"},
+        {"title": "Front-end Developer", "id": 3, "details": "Development of the front-end of the web-application with Vue"},
+        {"title": "Mobile App Developer", "id": 4, "details": "Xamarin, iOS Mobile Development"},
+    ],
+    "users": []
+}
