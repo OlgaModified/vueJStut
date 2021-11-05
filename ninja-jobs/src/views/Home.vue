@@ -17,3 +17,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+p {
+  background-color: rgb(149, 172, 153);
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+}
+</style>
