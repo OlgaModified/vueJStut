@@ -1,7 +1,8 @@
 <template>
-  <div class="home">    
-    <p ref="p">Person name is {{name}}, person's age {{ age }}</p>
-    <button @click="handleClick">Click Me!</button>
+  <div class="home">
+    <h1>Post about jobs</h1>    
+    <p ></p>
+    <button>Click Me!</button>
   </div>
 </template>
 
@@ -15,14 +16,12 @@ export default {
   setup() {
     //console.log('setup')
 
-    const p = ref(null)
-    let name = 'mario'
-    let age = '29'
-
-    const handleClick = ()=>{
-      console.log(p)
-    }
-    return {name, age, handleClick, p}
+    const jobs = ref([
+        {title: "Web Developer", id: 1, body: "A web developer is a programmer who specializes in, or is specifically engaged in, the development of World Wide Web applications using a client–server ..."},
+        {title: "Software Developer", id: 1, body: "Agile software development services for ambitious organizations. Flexible partnership. We implement robust processes in software development that result in reliable solutions. 16+ years of experience. Excellent tech know-how. We offer peace of mind."}
+        ])
+     
+    return {jobs}
   },
   data() {
     return {
