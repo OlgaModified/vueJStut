@@ -1,46 +1,24 @@
 <template>
   <div class="home">
-    <h1>Computed values</h1>    
-    <input type="text" v-model="search" />
-    <p>Search term - {{ search }}</p>
-    <div v-for="name in matchingNames" :key="name"> Our man for today is:  {{ name }}.</div>
-    <button @click="handleClick">Stop watch</button>
-     
+    <JobList :jobs="jobs"/>
   </div>
 </template>
 
 <script>
+import JobList from '../components/JobList.vue'
 import { computed, ref } from '@vue/reactivity'
-import { watch, watchEffect } from '@vue/runtime-core'
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
+  components: { JobList },
   setup() {
-    //console.log('setup')  
-    const search = ref('')  
-    const names = ref(['ironman', 'dracula', 'hulk', 'mario', 'marion', 'peach'])
-
-    const stopWatch = watch(search, ()=>{
-      console.log('big brother watching you')
-    })
-
-    const stopEffect = watchEffect(() => {
-      console.log('watchEffect watching you', search.value)
-    })
-
-    const matchingNames = computed(()=>{
-      return names.value.filter((name)=> name.includes(search.value))
-    })
-
-    const handleClick = ()=>{
-      stopWatch()
-      stopEffect()
-    }
+    //console.log('setup')
+    const jobs = ref([
+        {title: "Web Developer", id: 1, body: "A web developer is a programmer who specializes in, or is specifically engaged in, the development of World Wide Web applications using a client–server ..."},
+        {title: "Software Developer", id: 2, body: "Agile software development services for ambitious organizations. Flexible partnership. We implement robust processes in software development that result in reliable solutions. 16+ years of experience. Excellent tech know-how. We offer peace of mind."}
+        ])
      
-    return {names, search, matchingNames, handleClick}
+    return {jobs}
   }
-  
 }
 </script>
