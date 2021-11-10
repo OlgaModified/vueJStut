@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <JobList :jobs="jobs"/>
+    <h1>Wellcome adventurer!</h1>
+    <JobList v-if="showJobs" :jobs="jobs"/>
+    <button @click="showJobs = !showJobs">Show Jobs</button>
+    <button @click="jobs.pop()">delete a job</button>
   </div>
 </template>
 
@@ -18,7 +21,9 @@ export default {
         {title: "Software Developer", id: 2, body: "Agile software development services for ambitious organizations. Flexible partnership. We implement robust processes in software development that result in reliable solutions. 16+ years of experience. Excellent tech know-how. We offer peace of mind."}
         ])
      
-    return {jobs}
+    const showJobs = ref(true)
+    
+    return {jobs, showJobs}
   }
 }
 </script>
