@@ -4,16 +4,31 @@
     <JobList v-if="showJobs" :jobs="jobs"/>
     <button @click="showJobs = !showJobs">Show Jobs</button>
     <button @click="jobs.pop()">delete a job</button>
+
+    <h1>Wellcome adventurer!</h1>
+    <div v-if="error"> 
+      {{ error }}
+    </div>
+    
+    <div v-if="posts.length">
+      <PostList  :posts = "posts" />
+    </div>
+    
+    <div v-else>
+      Loading...
+    </div>
+
   </div>
 </template>
 
 <script>
 import JobList from '../components/JobList.vue'
+import PostList from '../components/PostList'
 import { computed, ref } from '@vue/reactivity'
 
 export default {
   name: 'Home',
-  components: { JobList },
+  components: { JobList , PostList},
   setup() {
     //console.log('setup')
     const jobs = ref([
@@ -22,8 +37,32 @@ export default {
         ])
      
     const showJobs = ref(true)
+    const showPosts = ref(true) 
+    const posts = ref([])
+    const error = ref(null)
     
-    return {jobs, showJobs}
+    const load = async () => {
+      try {
+
+        let data = await fetch('http://172.19.235.5:3000/posts')
+        //console.log(data)
+        if(!data.ok){
+          throw Error('no data avalaible')
+        }
+
+        posts.value = await data.json()
+
+      } 
+      catch (err) 
+      {
+        error.value = err.message
+        console.log(error.value)
+      }
+    }
+
+    load()
+    
+    return {jobs, showJobs, showPosts, error, posts}
   }
 }
 </script>
