@@ -18,6 +18,11 @@
       Loading...
     </div>
 
+    <SummernoteEditor
+      v-model="myValue"
+      @update:modelValue="summernoteChange($event)"
+      @summernoteImageLinkInsert="summernoteImageLinkInsert"
+    />
   </div>
 </template>
 
@@ -25,10 +30,24 @@
 import JobList from '../components/JobList.vue'
 import PostList from '../components/PostList'
 import { computed, ref } from '@vue/reactivity'
+import SummernoteEditor from 'vue3-summernote-editor';
 
 export default {
   name: 'Home',
-  components: { JobList , PostList},
+  components: { JobList , PostList, SummernoteEditor},
+  data() {
+    return {
+      myValue: ''
+    }
+  },
+  methods: {
+    summernoteChange(newValue) {
+          console.log("summernoteChange", newValue);
+       },
+        summernoteImageLinkInsert(...args) {
+          console.log("summernoteImageLinkInsert()", args);
+       },
+  },
   setup() {
     //console.log('setup')
     const jobs = ref([
