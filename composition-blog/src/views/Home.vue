@@ -17,37 +17,19 @@
     <div v-else>
       Loading...
     </div>
-
-    <SummernoteEditor
-      v-model="myValue"
-      @update:modelValue="summernoteChange($event)"
-      @summernoteImageLinkInsert="summernoteImageLinkInsert"
-    />
+    
   </div>
 </template>
 
 <script>
 import JobList from '../components/JobList.vue'
-import PostList from '../components/PostList'
-import { computed, ref } from '@vue/reactivity'
-import SummernoteEditor from 'vue3-summernote-editor';
+import PostList from '../components/PostList.vue'
+import getPosts from '../composables/getPosts'
+import { ref } from '@vue/reactivity'
 
 export default {
   name: 'Home',
-  components: { JobList , PostList, SummernoteEditor},
-  data() {
-    return {
-      myValue: ''
-    }
-  },
-  methods: {
-    summernoteChange(newValue) {
-          console.log("summernoteChange", newValue);
-       },
-        summernoteImageLinkInsert(...args) {
-          console.log("summernoteImageLinkInsert()", args);
-       },
-  },
+  components: { JobList , PostList },
   setup() {
     //console.log('setup')
     const jobs = ref([
@@ -55,33 +37,14 @@ export default {
         {title: "Software Developer", id: 2, body: "Agile software development services for ambitious organizations. Flexible partnership. We implement robust processes in software development that result in reliable solutions. 16+ years of experience. Excellent tech know-how. We offer peace of mind."}
         ])
      
-    const showJobs = ref(true)
-    const showPosts = ref(true) 
-    const posts = ref([])
-    const error = ref(null)
-    
-    const load = async () => {
-      try {
+    const showJobs = ref(true) 
 
-        let data = await fetch('http://172.19.235.5:3000/posts')
-        //console.log(data)
-        if(!data.ok){
-          throw Error('no data avalaible')
-        }
-
-        posts.value = await data.json()
-
-      } 
-      catch (err) 
-      {
-        error.value = err.message
-        console.log(error.value)
-      }
-    }
+    const { posts, error, load } = getPosts()
 
     load()
-    
-    return {jobs, showJobs, showPosts, error, posts}
+    //console.log(posts)
+        
+    return {jobs, showJobs, error, posts}
   }
 }
 </script>
