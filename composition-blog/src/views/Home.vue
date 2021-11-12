@@ -44,7 +44,7 @@ export default {
     const load = async () => {
       try {
 
-        let data = await fetch('http://172.19.235.5:3000/posts')
+        let data = await fetch('http://172.20.107.208:3000/posts')
         //console.log(data)
         if(!data.ok){
           throw Error('no data avalaible')
